@@ -1,4 +1,4 @@
-jekyll-bg
+jekyll-blog
 ===========
 
 My Jekyll Engine
