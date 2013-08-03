@@ -48,7 +48,95 @@ free命令默认显示的是kilobytes字节的大小   `free -m` 按照megabytes
 
 buffers和cached的大小你可以通过开多个虚拟机发现越变越小,当你立即释放虚拟机占据的内存后,buffers和cached的大小是伴着系统后续文件的使用逐渐增大的,猜想:buffers和cached内存占用的大小应该直接影响系统的性能,这部分内存占用越小系统的性能越低?
 
-...未完待续
+
+###I/O iostat
+iostat是用来监测硬盘的读写速率,也就是IOPS.iostat report了三个方面的信息{cpu,device I/O,network},其中cpu和network的相关信息是和I/O操作相关的.iostat的report的原数据主要来自/proc/diskstats.先来看一下cpu方面的report信息
+
+{% highlight ruby %}
+Linux 2.6.32-279.el6.x86 _ 64 (hostname) 	07/31/2013 	_x86_64 (24 CPU)
+
+avg-cpu:  %user   %nice %system %iowait  %steal   %idle
+           2.61    0.00    1.23    0.42    0.00   95.75
+
+
+{% endhighlight %}
+
+ * %user  用户级别的cpu占用率,就是应用的占用率
+
+ * %nice  用户级别的并且开始执行应用时指定了nice的优先级(priority)的cpu占用率
+
+ * %system  当然是系统级别的kernel的cpu占用率
+
+ * %iowait 硬盘的I/O很容易成为系统的瓶颈,此项目就显示了cpu在等待I/O操作所占的比重,我们当然希望这个值越低系统运行的越健康
+
+ * %steal  虚拟化的cpu等待的处理器服务于其他虚拟的cpu的时间.例如,虚拟的两个cpu Va和Vb, steal就是Va等待处理器被Vb占用的执行指令的时间.
+
+ * %idle 在没有磁盘I/O操作状态下CPU空闲的占用率信息
+
+
+再来看一下iostat的主要作用监控磁盘设备的状态
+  
+ * tps 表示一秒钟内设备的传输次数,一次传输指的是一次设备上的I/O请求,多个逻辑上的I/O请求合并为一次I/O请求,一次I/O请求传输的大小不确定.
+
+ * Blk_read/s(kB_read/s, MB_read/s) 每秒钟从设备读取的块的数量(kB或者MB),KB块的大小为扇区的大小,即512k
+  
+ * Blk_wrtn/s (kB_wrtn/s, MB_wrtn/s)每秒钟写入到设备的块的数量
+
+ * Blk_read(kB_read, MB_read) 读取块的总数
+
+ *  Blk_wrtn(kB_wrtn, MB_wrtn) 写入块的总数
+
+ * rrqm/s 对于写队列中对相同的block的读取fileSystem会合并为一个读请求,rrqm/s表示的就是合并的个数
+
+ * wrqm/s 对于相同块的写入合并为一次写操作,wrqm/s表示的就是合并的写个数
+
+ * r/s 每秒完成的读操作次数(合并后的读操作)
+
+ * w/s 每秒完成的写操作的次数(也是合并后的操作)
+
+ * rsec/s (rkB/s, rMB/s) 每秒读的扇区的数量
+
+ * wsec/s (wkB/s, wMB/s) 每秒写的扇区的数量
+ 
+ * avgrq-sz 每秒I/O设备平均的请求次数
+
+ * avgqu-sz 每秒I/O设备的平均请求队列长度
+
+ * await 每毫秒秒平均的请求等待和服务时间.包括请求到队列中,和I/O设备完成请求服务的时间
+
+ * r _ await 毫秒级的读请求的等待和服务时间  
+
+ * w _ await 毫秒级的写请求的等待和服务时间
+
+ * svctm  毫秒级的平均服务时间I(将要被移除,man文档的描述是不推荐的参考值)
+
+ * %util I/O操作占用CPU的百分率,当I/O操作过于繁忙的时候值会达到100%
+
+
+  至于网络的话就不写了.太多了>.<
+
+
+命令行参数的使用:
+
+  * -c 仅打印CPU的report
+
+  * -d 打印I/O设备的report 
+
+  * -h report输出格式化
+
+  * -k 输出的大小单位为kilobytes
+
+  * -m 输出的大小单位为megabytes
+
+  * -p 输出一个指定I/O设备的report,输出的结果中还包行这个设备下的所有分区表的分别的repor的统计信息 ex: iostat -dx -p sda 2 6 指定输出sda这个设备下的扩展的统计信息,每两秒输出一次,一共输出6次
+  
+  * -t 指定report的统计的间隔时间(可忽略直接上数字)
+
+  * -V 打印iostat的版本号
+
+  * -x 显示扩展的统计项.默认的显示是从{tps-Blk_wrtn},而扩展项是从{rrqm/s-util} 用法iostat -x sda
+
+  
 
 参考书籍   
  *  [鸟哥的Linux私房菜.基础学习篇][鸟哥的Linux私房菜.基础学习篇] 
