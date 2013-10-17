@@ -4,60 +4,54 @@
 /*
 /*****************************************************************************/
 
+/* Global Reset */
 * {
-        margin: 0;
-        padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
-html, body {
-        height: 100%;
-}
+html, body { height: 100%; }
 
 body {
-        background-color: white;
-        font: 13.34px helvetica, arial, clean, sans-serif;
-        *font-size: small;
-        text-align: center;
+  background-color: #FFF;
+  font: 13.34px Helvetica, Arial, sans-serif;
+  font-size: small;
+  text-align: left;
 }
 
 h1, h2, h3, h4, h5, h6 {
-        font-size: 100%;
-        margin-top: 1em;
-}
+  font-size: 100%; }
 
-h1 {
-        font-size: 110%;
-        margin-bottom: 1em;
-}
+h1 { margin-bottom: 1em; }
+p { margin: 1em 0; }
 
-p {
-        margin: 1em 0;
-}
-
-a {
-        color: #00a;
-}
-
-a:hover {
-        color: black;
-}
-
-a:visited {
-        color: #a0a;
-}
+a         { color: #00a; }
+a:hover   { color: #000; }
+a:visited { color: #a0a; }
 
 table {
-        font-size: inherit;
-        font: 100%;
+  font-size: inherit;
+  font: 100%;
 }
 
-blockquote {
-        margin-left:1em;
+/*****************************************************************************/
+/*
+/* Home
+/*
+/*****************************************************************************/
+ul.posts {
+  list-style-type: none;
+  margin-bottom: 2em;
 }
 
-::selection {
-    color: white;
-    background-color: #369;
+ul.posts li {
+  line-height: 1.75em;
+}
+
+ul.posts span {
+  color: #aaa;
+  font-family: Monaco, "Courier New", monospace;
+  font-size: 80%;
 }
 
 /*****************************************************************************/
@@ -67,82 +61,69 @@ blockquote {
 /*****************************************************************************/
 
 .site {
-        font-size: 110%;
-        text-align: justify;
-        width: 728px;
-        margin: 3em auto 2em auto;
-        line-height: 1.5em;
+  font-size: 115%;
+  text-align: justify;
+  width: 42em;
+  margin: 3em auto 2em;
+  line-height: 1.5em;
 }
 
-h1, h2, h3, h4, h5, h6, .comments {
-        text-align: left;
+.site .header a {
+  font-weight: bold;
+  text-decoration: none;
 }
 
-.title {
-        color: #369;
-        font-weight: bold;
-        margin-bottom: 2em;
+.site .header h1.title {
+  display: inline-block;
+  margin-bottom: 2em;
 }
 
-.site .title a {
-        color: #369;
-        text-decoration: none;
+.site .header h1.title a {
+  color: #a00;
 }
 
-.site .title a:hover {
-        color: black;
+.site .header h1.title a:hover {
+  color: #000;
+}
+
+.site .header a.extra {
+  color: #aaa;
+  margin-left: 1em;
+}
+
+.site .header a.extra:hover {
+  color: #000;
 }
 
 .site .meta {
-        color: #aaa;
+  color: #aaa;
 }
 
 .site .footer {
-        font-size: 80%;
-        color: #666;
-        border-top: 4px solid #eee;
-        margin-top: 2em;
-        overflow: hidden;
+  font-size: 80%;
+  color: #666;
+  border-top: 4px solid #eee;
+  margin-top: 2em;
+  overflow: hidden;
 }
 
 .site .footer .contact {
-        float: left;
-        margin-right: 3em;
+  float: left;
+  margin-right: 3em;
 }
 
-.site .footer .contact a,
-.site .footer .rss a {
-        color: #8085C1;
+.site .footer .contact a {
+  color: #8085C1;
 }
 
 .site .footer .rss {
-        margin-top: 1.1em;
-        margin-right: 0em;
-        float: right;
+  margin-top: 1.1em;
+  margin-right: -.2em;
+  float: right;
 }
 
-/*****************************************************************************/
-/*
-/* Home
-/*
-/*****************************************************************************/
-
-ul.posts {
-        list-style-type: none;
-        margin-bottom: 2em;
-}
-
-ul.posts li {
-        line-height: 1.75em;
-}
-
-ul.posts span {
-        color: #aaa;
-        font-size: 80%;
-}
-
-ul.posts a {
-        text-align: left;
+.site .footer .rss img {
+  border: 0;
 }
 
 /*****************************************************************************/
@@ -151,69 +132,34 @@ ul.posts a {
 /*
 /*****************************************************************************/
 
-#post {
-
+/* standard */
+.post pre {
+  border: 1px solid #ddd;
+  background-color: #eef;
+  padding: 0 .4em;
 }
 
-  /* standard */
-
-#post pre {
-        border: 1px solid #ddd;
-        background-color: #eef;
-        padding: 0 .4em;
-        overflow-x: auto;
-        white-space: pre-wrap;
-        white-space: -moz-pre-wrap !important;
-        white-space: -pre-wrap;
-        white-space: -o-pre-wrap;
-        word-wrap: break-word;
+.post ul, .post ol {
+  margin-left: 1.35em;
 }
 
-#post ul,
-#post ol {
-        margin-left: 1.35em;
+.post code {
+  border: 1px solid #ddd;
+  background-color: #eef;
+  padding: 0 .2em;
 }
 
-#post code {
-        border: 1px solid #ddd;
-        background-color: #eef;
-        font-size: 85%;
-        padding: 0 .2em;
+.post pre code {
+  border: none;
 }
 
-#post pre code {
-        border: none;
+/* terminal */
+.post pre.terminal {
+  border: 1px solid #000;
+  background-color: #333;
+  color: #FFF;
 }
 
-  /* terminal */
-
-#post pre.terminal {
-        border: 1px solid black;
-        background-color: #333;
-        color: white;
-}
-
-#post pre.terminal code {
-        background-color: #333;
-}
-
-#related {
-        margin-top: 2em;
-}
-
-#related h2 {
-        margin-bottom: 1em;
-}
-
-/*****************************************************************************/
-/*
-/* Ads
-/*
-/*****************************************************************************/
-
-.adsbygoogle {
-
-    width:468px;
-    height:60px;
-
+.post pre.terminal code {
+  background-color: #333;
 }
