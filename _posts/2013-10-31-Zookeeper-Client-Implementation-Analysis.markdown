@@ -2,7 +2,6 @@
 layout: post
 title:  "zookeeper client端实现解析"
 date:   2013-10-31 21:50:16
-categories: zookeeper
 ---
 zookeeper 客户端的实现主要由以下三个类完成:
  * org.apache.zookeeper.ZooKeeper
