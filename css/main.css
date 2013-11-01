@@ -133,6 +133,12 @@ ul.posts span {
 /*****************************************************************************/
 
 /* standard */
+.post {
+  font-size: 90%;
+}
+.highlight{
+  font-size: 105%;
+}
 .post pre {
   border: 1px solid #ddd;
   background-color: #eef;
