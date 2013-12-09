@@ -120,3 +120,10 @@ fastLeader的实现代码主要由FastLeaderElection和QuorumCnxManager两个类
 
 5. 在recvset放入一条新vote后判定是否达到leader的条件;判断收到的vote集合中与peer自己提议的propose相同的vote数是否达到机器中的一半以上，未达到条件则继续continue取下一个Notification;当达到条件时，则要稍等finalizeWait的时间，取recvqueue剩下的数据，这样做的目的是可能存在某台更适合做leader机器延迟启动或者发送消息阻塞等情况导致该Notification再判定条件满足后到达，当判定该Notification比当前propsor更适合做leader时，把该Notification放回recvqueue，continue进行4过程的操作更改peer的提议leader;如果所有recvqueue取出的剩余的Notification没有更合适的提议，则根据提议的sid判定是否与本机的sid相同，当相同的时候则设置为leading，否则设置为FOLLOWING或者OBSERVING;
 
+相关链接
+ * [Zab vs.Paxos][1]
+ * [wiki Paxos][2]
+ * [paxos-simple][3]
+[1]:https://cwiki.apache.org/confluence/display/ZOOKEEPER/Zab+vs.+Paxos
+[2]:http://en.wikipedia.org/wiki/Paxos_(computer_science)
+[3]:http://research.microsoft.com/en-us/um/people/lamport/pubs/paxos-simple.pdf
